@@ -380,7 +380,7 @@ void autonomous(void) {
     LeftMiddle.spin(reverse, 25, velocityUnits::pct);
     RightFront.spin(forward, 25, velocityUnits::pct);
     RightMiddle.spin(forward, 25, velocityUnits::pct);
-    RightBack.spinFor(forward, (6 / CIRCUMFERENCE), turns);
+    RightBack.spinFor(forward, (7 / CIRCUMFERENCE), turns);
     RightFront.stop();
     RightMiddle.stop();
     RightBack.stop();
@@ -391,6 +391,7 @@ void autonomous(void) {
     //1-31-22 changed distance from 6.667 to 6.25 then 7 cause that was the wrong direction, then back to 6 becuase I was wrong about that being the wrong direction
     //2-8-22 changed distance to 5.5 in. because a shallower turn was needed
     //2-11-22 changed distance to 6 in. because a test showed that a wider turn was needed
+    //2-17-22 changed distance to 7 in. because a test showed that a wider turn was needed
 
     wait(1, seconds);
     //1-29-22 the robot waits for 1 seconds
@@ -433,7 +434,7 @@ void autonomous(void) {
     LeftMiddle.spin(forward, 25, velocityUnits::pct);
     RightFront.spin(reverse, 25, velocityUnits::pct);
     RightMiddle.spin(reverse, 25, velocityUnits::pct);
-    RightBack.spinFor(reverse, (6 / CIRCUMFERENCE), turns);
+    RightBack.spinFor(reverse, (7 / CIRCUMFERENCE), turns);
     RightFront.stop();
     RightMiddle.stop();
     RightBack.stop();
@@ -443,6 +444,7 @@ void autonomous(void) {
     //1-31-22 the robot spins for around 45 degrees counterclockwise
     //2-8-22 changed distance to 5.5 inches to match previous turn
     //2-11-22 changed distance to 6 inches to match previous turn
+    //2-17-22 changed distance to 7 inches to match previous turn
 
     wait(1, seconds);
     //1-31-22 buffer for testing
@@ -482,9 +484,10 @@ void autonomous(void) {
     wait(1, seconds);
     //1-29-22 the robot waits for 1 seconds
 
-    drive(reverse, 50, vex::velocityUnits::pct, 10);
+    drive(reverse, 50, vex::velocityUnits::pct, 80);
     stop();
     //1-29-22 the robot drives backward 10 inches at 50 pct speed
+    //2-17-22 temporarily changed distance to 80 to score tall neutral Mobile Goal
   }
 }
 /*---------------------------------------------------------------------------*/
