@@ -144,6 +144,14 @@ void autonomous(void) {
   // ..........................................................................
   // Insert autonomous user code here.
   // ..........................................................................
+
+  LeftFront.resetPosition();
+  LeftMiddle.resetPosition();
+  LeftBack.resetPosition();
+  RightFront.resetPosition();
+  RightMiddle.resetPosition();
+  RightBack.resetPosition();
+
   if (Autonmode == 0) {
 
     GBCPiston.set(false);
@@ -449,9 +457,10 @@ void autonomous(void) {
     wait(1, seconds);
     //1-31-22 buffer for testing
 
-    drive(forward, 50, vex::velocityUnits::pct, 4);
+    drive(forward, 50, vex::velocityUnits::pct, 8);
     stop();
     //1-31-22 the robot drive 4 inches forward at 50 pct speed
+    //2-17-22 distance changed to 8 inches b/c 4 was not enough
 
     ArmMotors.spin(forward, 100, pct);
     wait(0.5, seconds);
