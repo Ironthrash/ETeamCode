@@ -86,6 +86,15 @@ void drive(vex::directionType direction, double velocity, vex::velocityUnits vel
   Controller1.Screen.print("done");
 }
 
+void turn(double rotation, vex::rotationUnits rotationUnits){
+  LeftBack.spinFor(forward, rotation, rotationUnits);
+  LeftFront.spinFor(forward, rotation, rotationUnits);
+  LeftMiddle.spinFor(forward, rotation, rotationUnits);
+  RightBack.spinFor(reverse, rotation, rotationUnits);
+  RightFront.spinFor(reverse, rotation, rotationUnits);
+  RightMiddle.spinFor(reverse, rotation, rotationUnits);
+}
+
 int Autonmode = 2;
 
 void touch() {
@@ -154,28 +163,7 @@ void autonomous(void) {
 
   if (Autonmode == 0) {
 
-    GBCPiston.set(false);
-    SPCPiston.set(true);
-    RDPiston.set(true);
-
-    drive(forward, 100, vex::velocityUnits::pct, 38);
-    //
-
-    LeftFront.setStopping(brake);
-    LeftMiddle.setStopping(brake);
-    LeftBack.setStopping(brake);
-    RightFront.setStopping(brake);
-    RightMiddle.setStopping(brake);
-    RightBack.setStopping(brake);
-    wait(0.3, seconds);
-    LeftFront.setStopping(coast);
-    LeftMiddle.setStopping(coast);
-    LeftBack.setStopping(coast);
-    RightFront.setStopping(coast);
-    RightMiddle.setStopping(coast);
-    RightBack.setStopping(coast);
-
-    drive(forward, 50, vex::velocityUnits::pct, 6);
+    turn(230, degrees);
 
     //RDPiston.set(true);
     //the ratchet drive disengages for more precise turning
@@ -493,10 +481,13 @@ void autonomous(void) {
     wait(1, seconds);
     //1-29-22 the robot waits for 1 seconds
 
-    drive(reverse, 50, vex::velocityUnits::pct, 80);
+    drive(reverse, 50, vex::velocityUnits::pct, 10);
     stop();
     //1-29-22 the robot drives backward 10 inches at 50 pct speed
     //2-17-22 temporarily changed distance to 80 to score tall neutral Mobile Goal
+    //2-17-22 changed distance back to 10 inches
+
+
   }
 }
 /*---------------------------------------------------------------------------*/
@@ -511,13 +502,10 @@ void autonomous(void) {
 void usercontrol(void) {
   // User control code here, inside the loop
   while (1) {
-    // This is the main execution loop for the user control program.
-    // Each time through the loop your program should update motor + servo
-    // values based on feedback from the joysticks.
-    // ........................................................................
-    // Insert user code here. This is where you use the joystick values to
-    // update your motors, etc.
-    // ........................................................................
+
+    
+
+
     LeftFront.spin(forward, Controller1.Axis3.value() + Controller1.Axis1.value() / 2, pct);
     LeftMiddle.spin(forward, Controller1.Axis3.value() + Controller1.Axis1.value() / 2, pct);
     LeftBack.spin(forward, Controller1.Axis3.value() + Controller1.Axis1.value() / 2, pct);
@@ -566,6 +554,8 @@ int main() {
   pre_auton();
   // Prevent main from exiting with an infinite loop.
   while (true) {
+    Brain.Screen.print(LeftMiddle.position(degrees));
     wait(100, msec);
+    Brain.Screen.clearLine();
   }
 }
