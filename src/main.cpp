@@ -491,7 +491,20 @@ void autonomous(void) {
     //2-17-22 temporarily changed distance to 80 to score tall neutral Mobile Goal
     //2-17-22 changed distance back to 10 inches
 
+    turn(-90, degrees);
+    //2-18-22 robot turns 90 degrees counterclockwise
 
+    RightMiddle.spin(reverse, 50, pct);
+    RightBack.spin(reverse, 50, pct);
+    RightFront.spin(reverse, 50, pct);
+    LeftFront.spin(reverse, 50, pct);
+    LeftBack.spin(reverse, 50, pct);
+    LeftMiddle.spin(reverse, 50, pct);
+    wait(2.5, seconds);
+    stop();
+    //2-18-22 robot drives backwards based on the following equations:
+    //3.25 in. diameter * pi * 2/1 gear ratio * (200 rpm/2)/60 = ~34 in. per seconds at 50 pct speed
+    //84 in. / 34 in./second = ~2.5 seconds
   }
 }
 /*---------------------------------------------------------------------------*/
