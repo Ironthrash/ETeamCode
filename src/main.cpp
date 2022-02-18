@@ -87,12 +87,15 @@ void drive(vex::directionType direction, double velocity, vex::velocityUnits vel
 }
 
 void turn(double rotation, vex::rotationUnits rotationUnits){
-  LeftBack.spinFor(forward, rotation, rotationUnits);
-  LeftFront.spinFor(forward, rotation, rotationUnits);
-  LeftMiddle.spinFor(forward, rotation, rotationUnits);
-  RightBack.spinFor(reverse, rotation, rotationUnits);
-  RightFront.spinFor(reverse, rotation, rotationUnits);
-  RightMiddle.spinFor(reverse, rotation, rotationUnits);
+  LeftBack.setVelocity(30, pct);
+  LeftFront.spin(forward, 30, pct);
+  LeftMiddle.spin(forward, 30, pct);
+  RightBack.spin(reverse, 30, pct);
+  RightFront.spin(reverse, 30, pct);
+  RightMiddle.spin(reverse, 30, pct);
+  LeftBack.spinFor(forward, rotation*2, rotationUnits);
+  stop();
+  //2-18-22 function for turning a specific number of degrees
 }
 
 int Autonmode = 2;
@@ -162,8 +165,9 @@ void autonomous(void) {
   RightBack.resetPosition();
 
   if (Autonmode == 0) {
+    RDPiston.set(true);
 
-    turn(230, degrees);
+    turn(90, degrees);
 
     //RDPiston.set(true);
     //the ratchet drive disengages for more precise turning
