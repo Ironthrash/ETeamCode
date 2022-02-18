@@ -86,16 +86,28 @@ void drive(vex::directionType direction, double velocity, vex::velocityUnits vel
   Controller1.Screen.print("done");
 }
 
-void turn(double rotation, vex::rotationUnits rotationUnits){
-  LeftBack.setVelocity(30, pct);
-  LeftFront.spin(forward, 30, pct);
-  LeftMiddle.spin(forward, 30, pct);
-  RightBack.spin(reverse, 30, pct);
-  RightFront.spin(reverse, 30, pct);
-  RightMiddle.spin(reverse, 30, pct);
-  LeftBack.spinFor(forward, rotation*2, rotationUnits);
-  stop();
-  //2-18-22 function for turning a specific number of degrees
+void turn(vex::directionType direction, double rotation, vex::rotationUnits rotationUnits){
+  if(direction == forward){
+    LeftBack.setVelocity(30, pct);
+    LeftFront.spin(forward, 30, pct);
+    LeftMiddle.spin(forward, 30, pct);
+    RightBack.spin(reverse, 30, pct);
+    RightFront.spin(reverse, 30, pct);
+    RightMiddle.spin(reverse, 30, pct);
+    LeftBack.spinFor(forward, rotation*2, rotationUnits);
+    stop(); 
+  } else{
+    LeftBack.setVelocity(30, pct);
+    LeftFront.spin(reverse, 30, pct);
+    LeftMiddle.spin(reverse, 30, pct);
+    RightBack.spin(forward, 30, pct);
+    RightFront.spin(forward, 30, pct);
+    RightMiddle.spin(forward, 30, pct);
+    LeftBack.spinFor(reverse, rotation*2, rotationUnits);
+    stop(); 
+  }
+  
+  //2-18-22 function for turning a specific number of degrees clockwise (forward) & counterclockwise (reverse)
 }
 
 int Autonmode = 2;
@@ -167,7 +179,7 @@ void autonomous(void) {
   if (Autonmode == 0) {
     RDPiston.set(true);
 
-    turn(90, degrees);
+    turn(forward, 90, degrees);
 
     //RDPiston.set(true);
     //the ratchet drive disengages for more precise turning
@@ -352,7 +364,8 @@ void autonomous(void) {
 
     drive(forward, 50, vex::velocityUnits::pct, 6);
     stop();
-    //1-29-22 the robot drives forward 6 inches at 50 pct speed
+    //1-29-22 the robot drives forward 6 inches at 50 pct speed   
+
     GBCPiston.set(true);
     //1-29-22 Goal Base Clamper Piston activates
 
@@ -402,8 +415,7 @@ void autonomous(void) {
     //1-29-22 the 4 bar lift lifts up at full speed for 2 seconds
     //1-31-22 changed time to 1.5 then 1
 
-    wait(1, seconds);
-    //1-29-22 the robot waits for 1 seconds
+    
 
     drive(forward, 50, vex::velocityUnits::pct, 34);
     stop();
@@ -485,14 +497,22 @@ void autonomous(void) {
     wait(1, seconds);
     //1-29-22 the robot waits for 1 seconds
 
-    drive(reverse, 50, vex::velocityUnits::pct, 10);
+    drive(reverse, 50, vex::velocityUnits::pct, 6);
     stop();
     //1-29-22 the robot drives backward 10 inches at 50 pct speed
     //2-17-22 temporarily changed distance to 80 to score tall neutral Mobile Goal
     //2-17-22 changed distance back to 10 inches
+    //2-18-22 changed distance to 6 inches
 
-    turn(-90, degrees);
+    wait(1, seconds);
+    //2-18-22 the robot waits for 1 seconds   
+
+    turn(reverse, 95, degrees);
     //2-18-22 robot turns 90 degrees counterclockwise
+    //2-18-22 robot turns 95 degrees counterclockwise
+
+    wait(1, seconds);
+    //2-18-22 the robot waits for 1 seconds
 
     RightMiddle.spin(reverse, 50, pct);
     RightBack.spin(reverse, 50, pct);
@@ -505,6 +525,9 @@ void autonomous(void) {
     //2-18-22 robot drives backwards based on the following equations:
     //3.25 in. diameter * pi * 2/1 gear ratio * (200 rpm/2)/60 = ~34 in. per seconds at 50 pct speed
     //84 in. / 34 in./second = ~2.5 seconds
+
+    drive(forward, 50, vex::velocityUnits::pct, 96);
+    //2-18-22 the robot drives forward 96 inches at 50 pct speed
   }
 }
 /*---------------------------------------------------------------------------*/
