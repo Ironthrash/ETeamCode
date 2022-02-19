@@ -453,7 +453,7 @@ void autonomous(void) {
     LeftFront.stop();
     LeftBack.stop();
     LeftMiddle.stop();
-    //1-31-22 the robot spins for around 45 degrees counterclockwise
+    //1-31-22 the robot spins for around 45 degrees clockwise
     //2-8-22 changed distance to 5.5 inches to match previous turn
     //2-11-22 changed distance to 6 inches to match previous turn
     //2-17-22 changed distance to 7 inches to match previous turn
